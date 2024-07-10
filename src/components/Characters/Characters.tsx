@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { type Character } from "../../types/character";
 import Pagination from "../Pagination";
+import "./Characters.css"
 
 function Characters() {
     const [characters, setCharacters] = useState<Character[]>([])
@@ -35,35 +36,37 @@ function Characters() {
     }
 
     return (
-        <>
-            <h2>Characters</h2>
+        <div className="characters-container">
 
+            <h2>List of Characters</h2>
+
+            <label htmlFor="input-search">Search a Character</label>
             <input
                 type="text"
                 placeholder="Search..."
                 value={query}
                 onChange={handleQueryChange}
+                className="input-search"
+                id="input-search"
             />
 
-            <table>
-                <thead>
+            <table className="table">
+                <thead className="thead">
                     <tr>
                         <th scope="col"></th>
                         <th scope="col">Name</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Specie</th>
                         <th scope="col">Gender</th>
                         <th scope="col">Origin</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="tbody">
                     {
                         characters && characters.map((c: Character) => (
                             <tr key={c.id}>
-                                <th scope="row"><img src={c.image} alt={`${c.name} Image`} /></th>
+                                <th scope="row"><img className="image-character" src={c.image} alt={`${c.name} Image`} /></th>
                                 <th>{c.name}</th>
                                 <th>{c.status}</th>
-                                <th>{c.species}</th>
                                 <th>{c.gender}</th>
                                 <th>{c.origin.name}</th>
                             </tr>
@@ -74,8 +77,7 @@ function Characters() {
             </table>
 
             <Pagination currentPage={page} onPageChange={handlePageChange} />
-
-        </>
+        </div>
     );
 }
 

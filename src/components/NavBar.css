@@ -1,0 +1,29 @@
+.navbar-container{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    width: 70vh;
+    justify-content: space-around;
+    list-style: none;
+    text-decoration: none;
+}
+
+.nav-item {
+    display: inline-block;
+    margin-right: 10px;
+    background-color: black;
+    padding: 10px;
+}
+
+.nav-link {
+    color: white; /* Color del texto */
+    text-decoration: none; /* Elimina el subrayado */
+    font-weight: bold; /* Puedes ajustar el peso de la fuente */
+}
+
+.nav-link:hover {
+    color: red; /* Cambia el color al pasar el mouse */
+}
