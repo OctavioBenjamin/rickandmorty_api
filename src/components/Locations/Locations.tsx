@@ -1,24 +1,49 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { type Location } from "../../types/location";
+import Pagination from "../Pagination";
+import { Location } from "../../types/location";
+
 
 function Locations() {
-    const [locations, setLocations] = useState<Location[]>([])
+    const [locations, setLocations] = useState<Location[]>([]);
+    const [page, setPage] = useState(1);
+    const [query, setQuery] = useState("");
 
-    const baseurl = "https://rickandmortyapi.com/api/location"
+    const baseurl = "https://rickandmortyapi.com/api/location";
 
     useEffect(() => {
-        getLocation()
-    }, [])
+        getLocations();
+    }, [page, query]);
 
-    async function getLocation(queries = "") {
-        const { data } = await axios.get(`${baseurl}?${queries}`)
-        setLocations(data.results)
+    async function getLocations() {
+        const url = query ? `${baseurl}?name=${query}` : `${baseurl}?page=${page}`;
+        const { data } = await axios.get(url);
+        setLocations(data.results);
+        console.log(url);
+    }
+
+    // Actualiza el estado de la query según lo que el usuario ingrese.
+    function handleQueryChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setQuery(event.target.value);
+    }
+
+    // Cambia la página actual, asegurándose de que la nueva página sea mayor que 0.
+    function handlePageChange(newPage: number) {
+        if (newPage > 0) {
+            setPage(newPage);
+        }
     }
 
     return (
         <>
             <h2>Locations</h2>
+
+            <input
+                type="text"
+                placeholder="Search..."
+                value={query}
+                onChange={handleQueryChange}
+            />
 
             <table>
                 <thead>
@@ -29,18 +54,17 @@ function Locations() {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        locations && locations.map((l: Location) => (
-                            <tr key={l.id}>
-                                <th scope="row">{l.name}</th>
-                                <th>{l.type}</th>
-                                <th>{l.dimension}</th>
-                            </tr>
-                        ))
-                    }
-
+                    {locations && locations.map((loc: Location) => (
+                        <tr key={loc.id}>
+                            <th>{loc.name}</th>
+                            <th>{loc.type}</th>
+                            <th>{loc.dimension}</th>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
+
+            <Pagination currentPage={page} onPageChange={handlePageChange} />
         </>
     );
 }

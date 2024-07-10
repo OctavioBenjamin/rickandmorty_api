@@ -1,24 +1,49 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { type Character } from "../../types/character";
+import Pagination from "../Pagination";
 
 function Characters() {
     const [characters, setCharacters] = useState<Character[]>([])
+    const [page, setPage] = useState(1);
+    const [query, setQuery] = useState("");
 
     const baseurl = "https://rickandmortyapi.com/api/character"
 
     useEffect(() => {
         getCharacters()
-    }, [])
+    }, [page, query])
 
-    async function getCharacters(queries = "") {
-        const { data } = await axios.get(`${baseurl}?${queries}`)
-        setCharacters(data.results)
+    async function getCharacters() {
+        const url = query ? `${baseurl}?name=${query}` : `${baseurl}?page=${page}`;
+        const { data } = await axios.get(url);
+        setCharacters(data.results);
+        console.log(url);
+        
+    }
+
+    //Actualiza el estado de la query según lo que el usuario ingrese.
+    function handleQueryChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setQuery(event.target.value);
+    }
+
+    //Cambia la página actual, asegurándose de que la nueva página sea mayor que 0.
+    function handlePageChange(newPage: number) {
+        if (newPage > 0) {
+            setPage(newPage);
+        }
     }
 
     return (
         <>
             <h2>Characters</h2>
+
+            <input
+                type="text"
+                placeholder="Search..."
+                value={query}
+                onChange={handleQueryChange}
+            />
 
             <table>
                 <thead>
@@ -47,6 +72,9 @@ function Characters() {
 
                 </tbody>
             </table>
+
+            <Pagination currentPage={page} onPageChange={handlePageChange} />
+
         </>
     );
 }
