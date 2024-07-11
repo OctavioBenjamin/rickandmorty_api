@@ -8,7 +8,7 @@ function Characters() {
     const [characters, setCharacters] = useState<Character[]>([])
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState("");
-
+    const [lastPage, setLastPage] = useState(0)
     const baseurl = "https://rickandmortyapi.com/api/character"
 
     useEffect(() => {
@@ -18,6 +18,7 @@ function Characters() {
     async function getCharacters() {
         const url = query ? `${baseurl}?name=${query}` : `${baseurl}?page=${page}`;
         const { data } = await axios.get(url);
+        setLastPage(data.info.pages)
         setCharacters(data.results);
         console.log(url);
         
@@ -76,7 +77,7 @@ function Characters() {
                 </tbody>
             </table>
 
-            <Pagination currentPage={page} onPageChange={handlePageChange} />
+            <Pagination currentPage={page} onPageChange={handlePageChange} lastPage={lastPage}/>
         </div>
     );
 }

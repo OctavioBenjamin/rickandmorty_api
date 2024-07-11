@@ -8,6 +8,8 @@ function Episodes() {
     const [episodes, setEpisodes] = useState<Episode[]>([]);
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState("");
+    const [lastPage, setLastPage] = useState(0)
+
 
     const baseurl = "https://rickandmortyapi.com/api/episode";
 
@@ -18,6 +20,7 @@ function Episodes() {
     async function getEpisodes() {
         const url = query ? `${baseurl}?name=${query}` : `${baseurl}?page=${page}`;
         const { data } = await axios.get(url);
+        setLastPage(data.info.pages)
         setEpisodes(data.results);
         console.log(url);
     }
@@ -69,7 +72,7 @@ function Episodes() {
                 </tbody>
             </table>
 
-            <Pagination currentPage={page} onPageChange={handlePageChange} />
+            <Pagination currentPage={page} onPageChange={handlePageChange} lastPage={lastPage}/>
         </div>
     );
 }

@@ -9,6 +9,8 @@ function Locations() {
     const [locations, setLocations] = useState<Location[]>([]);
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState("");
+    const [lastPage, setLastPage] = useState(0)
+
 
     const baseurl = "https://rickandmortyapi.com/api/location";
 
@@ -19,6 +21,7 @@ function Locations() {
     async function getLocations() {
         const url = query ? `${baseurl}?name=${query}` : `${baseurl}?page=${page}`;
         const { data } = await axios.get(url);
+        setLastPage(data.info.pages)
         setLocations(data.results);
         console.log(url);
     }
@@ -68,7 +71,7 @@ function Locations() {
                     </tbody>
                 </table>
 
-                <Pagination currentPage={page} onPageChange={handlePageChange} />
+                <Pagination currentPage={page} onPageChange={handlePageChange} lastPage={lastPage}/>
             </div>
     );
 }
