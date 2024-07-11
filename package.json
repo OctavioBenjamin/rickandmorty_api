@@ -1,7 +1,7 @@
 {
   "name": "rickandmorty_api",
   "private": true,
-  "homepage": "http://octaviobenjamin.github.io/rickandmorty_api",
+  "homepage": "https://octaviobenjamin.github.io/rickandmorty_api/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
