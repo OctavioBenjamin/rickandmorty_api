@@ -1,13 +1,8 @@
-.characters-container {
+.locations-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.image-character {
-    height: 100px;
-    width: 100px;
 }
 
 .table {

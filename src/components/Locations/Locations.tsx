@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Pagination from "../Pagination";
 import { Location } from "../../types/location";
+import "./Locations.css"
 
 
 function Locations() {
@@ -35,37 +36,40 @@ function Locations() {
     }
 
     return (
-        <>
-            <h2>Locations</h2>
+            <div className="locations-container">
+                <h2>List of Locations</h2>
 
-            <input
-                type="text"
-                placeholder="Search..."
-                value={query}
-                onChange={handleQueryChange}
-            />
+                <label htmlFor="input-search">Search a Location</label>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={query}
+                    onChange={handleQueryChange}
+                    className="input-search"
+                    id="input-search"
+                />
 
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Dimension</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {locations && locations.map((loc: Location) => (
-                        <tr key={loc.id}>
-                            <th>{loc.name}</th>
-                            <th>{loc.type}</th>
-                            <th>{loc.dimension}</th>
+                <table className="table">
+                    <thead className="thead">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Dimension</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className="tbody">
+                        {locations && locations.map((loc: Location) => (
+                            <tr key={loc.id}>
+                                <th>{loc.name}</th>
+                                <th>{loc.type}</th>
+                                <th>{loc.dimension}</th>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
-            <Pagination currentPage={page} onPageChange={handlePageChange} />
-        </>
+                <Pagination currentPage={page} onPageChange={handlePageChange} />
+            </div>
     );
 }
 

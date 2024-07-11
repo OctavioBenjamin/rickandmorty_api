@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Pagination from "../Pagination"; // Ajusta la ruta según sea necesario
 import { type Episode } from "../../types/episodes";
+import "./Episodes.css"
 
 function Episodes() {
     const [episodes, setEpisodes] = useState<Episode[]>([]);
@@ -34,18 +35,22 @@ function Episodes() {
     }
 
     return (
-        <>
-            <h2>Episodes</h2>
+        <div className="episodes-container">
 
+            <h2>List of Episodes</h2>
+
+            <label htmlFor="input-search">Search a Episode</label>
             <input
                 type="text"
                 placeholder="Search..."
                 value={query}
                 onChange={handleQueryChange}
+                className="input-search"
+                id="input-search"
             />
 
-            <table>
-                <thead>
+            <table className="table">
+                <thead className="thead">
                     <tr>
                         <th scope="col">Episode</th>
                         <th scope="col">Name</th>
@@ -53,7 +58,7 @@ function Episodes() {
                         {/* <th scope="col">Characters</th> */}
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="tbody">
                     {episodes && episodes.map((e: Episode) => (
                         <tr key={e.id}>
                             <th scope="row">{e.episode}</th>
@@ -64,8 +69,8 @@ function Episodes() {
                 </tbody>
             </table>
 
-            <Pagination currentPage={page} onPageChange={handlePageChange}/>
-        </>
+            <Pagination currentPage={page} onPageChange={handlePageChange} />
+        </div>
     );
 }
 

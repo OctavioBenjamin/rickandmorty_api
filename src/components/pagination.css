@@ -1,0 +1,13 @@
+.pagination-container {
+    margin: 20px
+}
+
+.pagination-button {
+    margin: 10px;
+    background-color: black;
+    font-weight: bold;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
