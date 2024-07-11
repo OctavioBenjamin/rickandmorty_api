@@ -20,7 +20,7 @@ function Characters() {
         const { data } = await axios.get(url);
         setLastPage(data.info.pages)
         setCharacters(data.results);
-        console.log(url);
+        console.log(data);
         
     }
 

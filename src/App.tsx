@@ -15,7 +15,7 @@ function App() {
       <Header/>
 
       <Routes>
-        <Route path="/" element={<Characters/>}/>
+        <Route path="/rickandmorty_api/" element={<Characters/>}/>
         <Route path="/rickandmorty_api/locations" element={<Locations/>}/>
         <Route path="/rickandmorty_api/episodes" element={<Episodes/>}/>
       </Routes>
